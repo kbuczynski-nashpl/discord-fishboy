@@ -1,0 +1,11 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <JSCodeStyleSettings version="0">
+      <option name="ALIGN_VAR_STATEMENTS" value="1" />
+      <option name="SPACES_WITHIN_IMPORTS" value="true" />
+    </JSCodeStyleSettings>
+    <codeStyleSettings language="JavaScript">
+      <option name="ALIGN_MULTILINE_PARAMETERS_IN_CALLS" value="true" />
+    </codeStyleSettings>
+  </code_scheme>
+</component>

@@ -1,0 +1,31 @@
+{
+  "name": "discord-fishboy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kbuczynski-nashpl/discord-fishboy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kbuczynski-nashpl/discord-fishboy/issues"
+  },
+  "homepage": "https://github.com/kbuczynski-nashpl/discord-fishboy#readme",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
+    "knex": "^0.21.1",
+    "sqlite3": "^4.2.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0"
+  }
+}
