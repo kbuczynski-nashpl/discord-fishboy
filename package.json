@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "knex": "node_modules/knex/bin/cli.js --migrations-directory migrations"
   },
   "repository": {
     "type": "git",

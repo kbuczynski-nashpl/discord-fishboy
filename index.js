@@ -19,11 +19,11 @@ bot.commands = new Discord.Collection();
 fs.readdir('./src/discord/commands', (err, files) => {
 	if (err) logger.log('error', err.toString());
 
-	const jsfile = files.filter(f => f.split('.').pop() === 'js');
+	const jsFile = files.filter(f => f.split('.').pop() === 'js');
 
-	if (jsfile <= 0) logger.log('error', 'commands not found');
+	if (jsFile <= 0) logger.log('error', 'commands not found');
 
-	jsfile.forEach((file) => {
+	jsFile.forEach((file) => {
 		const command = require(`./src/discord/commands/${file}`);
 
 		bot.commands.set(command.help.name, command);
@@ -33,6 +33,7 @@ fs.readdir('./src/discord/commands', (err, files) => {
 bot.login(TOKEN);
 
 bot.on('ready', async () => {
+	console.info('Bot is ready');
 	await bot.user.setActivity('Watching the lakes...', { type: 'WATCHING' });
 });
 
@@ -49,8 +50,8 @@ bot.on('message', message => {
 
 	const command = bot.commands.get(cmd.slice(prefix.length));
 
-	guilds.build(message.guild);
-	guilds.register();
+	 guilds.build(message.guild);
+	 guilds.register();
 
 	if (command) command.run(bot, message, args);
 	if (message.content.indexOf(prefix) !== 0) return;

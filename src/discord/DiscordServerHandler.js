@@ -1,4 +1,4 @@
-const db = require('./../Database');
+const db = require('./../../db');
 
 const TABLE_NAME = 'discord_servers';
 const Logger = require('./../Logger');
@@ -22,7 +22,7 @@ class DiscordServerHandler {
 				{
 					server_id: this.serverId,
 					server_name: this.serverName,
-					server_member_no: this.serverMemberNo,
+					server_members_no: this.serverMemberNo,
 				},
 			).into(TABLE_NAME)
 				.then(rows => {

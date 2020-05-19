@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Acadian Redfish",
+    "min-weight": 0.68,
+    "max-weight": 1.36,
+    "rarity": 1
+  },
+  {
+    "name": "Alaska Pollock",
+    "min-weight": 0.18,
+    "max-weight": 0.7,
+    "rarity": 1
+  }
+]
