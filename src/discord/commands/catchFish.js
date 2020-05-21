@@ -1,12 +1,16 @@
 const Discord = require('discord.js');
 const Fish = require('./../../FishGame/Fish');
+const DiscordUserHandler = require('../DiscordUserHandler');
 
 module.exports.run = async (bot, message) => {
 	const messageEmbed = new Discord.MessageEmbed();
 
 	const fish = new Fish();
 	await fish.generateFish();
-	const data = await fish.returnFish();
+	const caughtFish = await fish.catch();
+	console.info(caughtFish);
+
+	return;
 
 	const msg = await messageEmbed.setTitle('Today Special!')
 		.setColor(0xffff00)
@@ -19,6 +23,6 @@ module.exports.run = async (bot, message) => {
 };
 
 module.exports.help = {
-	name: 'getRandomFishInfo',
-	description: 'Shows random fish',
+	name: 'catchFish',
+	description: 'Try catch a fish',
 };

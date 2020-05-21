@@ -25,10 +25,31 @@ class Fish {
 		return fishObject;
 	}
 
-	catchChance() {
+	async catchChance() {
 		const baseChance = process.env.CATCH_CHANCE;
 
 		return (baseChance * this.rarity) / 100;
+	}
+
+	async catch() {
+		const successChance = process.env.SUCCESS_NUMBER;
+		const chance = await this.catchChance();
+		const multiplayer = 0.5;
+		const baseTry = Math.floor(Math.random() * chance) + this.rarity;
+		const actualTry = baseTry * multiplayer;
+
+		let outcome = false;
+
+		if (actualTry > successChance) outcome = true;
+		if (actualTry <= successChance) return false;
+		if (outcome === false) return false;
+
+		const pointMultiplayer = process.env.POINT_MULTIPLAYER;
+		const points = Math.ceil(this.length * pointMultiplayer) * 100;
+
+		console.log('HERE =>' + pointMultiplayer);
+		console.log('fish =>' + this.length);
+		console.info('Points => ' + points);
 	}
 }
 
