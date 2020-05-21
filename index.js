@@ -38,7 +38,7 @@ bot.on('ready', async () => {
 });
 
 bot.on('message', message => {
-	const prefix = process.env.prefix;
+	const prefix = process.env.DISCORD_PREFIX;
 
 	if (message.author.bot) return;
 	if (message.channel.type === 'dm') return;
