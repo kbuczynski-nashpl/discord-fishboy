@@ -1,7 +1,7 @@
 const db = require('./../../db');
-const TABLE_NAME = 'Fish';
-const Logger = require('./../Logger');
-const logger = new Logger();
+const FishScoreboard = require('./FishScoreboard');
+
+const TABLE_NAME = 'fish';
 
 class Fish {
 	async generateFish() {
@@ -31,7 +31,7 @@ class Fish {
 		return (baseChance * this.rarity) / 100;
 	}
 
-	async catch() {
+	async catch(userId) {
 		const successChance = process.env.SUCCESS_NUMBER;
 		const chance = await this.catchChance();
 		const multiplayer = 0.5;
@@ -47,9 +47,11 @@ class Fish {
 		const pointMultiplayer = process.env.POINT_MULTIPLAYER;
 		const points = Math.ceil(this.length * pointMultiplayer) * 100;
 
-		console.log('HERE =>' + pointMultiplayer);
-		console.log('fish =>' + this.length);
-		console.info('Points => ' + points);
+		const fishScoreboard = new FishScoreboard();
+		await fishScoreboard.build(userId);
+		await fishScoreboard.update(points);
+
+		return await fishScoreboard.getScoreboard();
 	}
 }
 

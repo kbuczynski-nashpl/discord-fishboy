@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "knex": "node_modules/knex/bin/cli.js --migrations-directory migrations"
   },
   "repository": {

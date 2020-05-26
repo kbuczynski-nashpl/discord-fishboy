@@ -1,36 +1,42 @@
 const db = require('./../../db');
 
 const TABLE_NAME = 'discord_servers';
-const Logger = require('./../Logger');
-const logger = new Logger();
 
 class DiscordServerHandler {
-	build(guild) {
-		this.serverId = guild.id;
-		this.serverName = guild.name;
-		this.serverMemberNo = guild.memberCount;
+	async build(guild) {
+		let server = await db.select('*')
+			.from(TABLE_NAME)
+			.where('server_id', guild.id)
+			.limit(1);
+
+		if (Array.isArray(server) && server.lenght < 1) {
+			server = await db.insert(
+				{
+					server_id: guild.id,
+					server_name: guild.name,
+					server_members_no: guild.memberCount,
+				},
+			).table(TABLE_NAME);
+		}
+
+		server = server[0];
+
+		this.serverId = server.server_id;
+		this.serverName = server.server_name;
+		this.serverMemberNo = server.server_members_no;
 	}
 
-	register() {
-		const server = db.select('*').from(TABLE_NAME).where('server_id', this.serverId);
-		server.then(data => {
-			if (Array.isArray(data) && data.length) {
-				return;
-			}
+	async getServer() {
+		const serverObject = {};
+		serverObject.serverId = this.serverId;
+		serverObject.serverName = this.serverName;
+		serverObject.serverMemberNo = this.serverMemberNo;
 
-			return db.insert(
-				{
-					server_id: this.serverId,
-					server_name: this.serverName,
-					server_members_no: this.serverMemberNo,
-				},
-			).into(TABLE_NAME)
-				.then(rows => {
-					return rows[0];
-				});
-		}).catch(err => {
-			logger.log('error', err.toString());
-		});
+		return serverObject;
+	}
+
+	async getServerId() {
+		return this.serverId;
 	}
 }
 

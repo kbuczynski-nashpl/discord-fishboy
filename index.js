@@ -37,7 +37,7 @@ bot.on('ready', async () => {
 	await bot.user.setActivity('Watching the lakes...', { type: 'WATCHING' });
 });
 
-bot.on('message', message => {
+bot.on('message', async message => {
 	const prefix = process.env.DISCORD_PREFIX;
 
 	if (message.author.bot) return;
@@ -50,8 +50,7 @@ bot.on('message', message => {
 
 	const command = bot.commands.get(cmd.slice(prefix.length));
 
-	 guilds.build(message.guild);
-	 guilds.register();
+	 await guilds.build(message.guild);
 
 	if (command) command.run(bot, message, args);
 	if (message.content.indexOf(prefix) !== 0) return;
