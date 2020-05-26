@@ -4,6 +4,10 @@ const FishScoreboard = require('./FishScoreboard');
 const TABLE_NAME = 'fish';
 
 class Fish {
+	/**
+	 * Generate Fish object
+	 * @returns void
+	 */
 	async generateFish() {
 		const fish = await db.select('*').from(TABLE_NAME).whereRaw(`id = abs(random()) % (SELECT max(id) FROM ${TABLE_NAME}) + 1`).limit(1);
 		const row = fish[0];
@@ -15,6 +19,10 @@ class Fish {
 		this.length = Math.floor(Math.random() * this.maxLength) + this.minLength;
 	}
 
+	/**
+	 * Return Fish Object
+	 * @returns {}
+	 */
 	async returnFish() {
 		const fishObject = {};
 		fishObject.name = this.name;
@@ -25,12 +33,22 @@ class Fish {
 		return fishObject;
 	}
 
+	/**
+	 * Calculate Fish Catch chance
+	 * @returns number
+	 */
 	async catchChance() {
 		const baseChance = process.env.CATCH_CHANCE;
 
 		return (baseChance * this.rarity) / 100;
 	}
 
+	/**
+	 * Attempt catch of a fish and write score to the scoreboard.
+	 *
+	 * @param userId
+	 * @returns FishScoreboard
+	 */
 	async catch(userId) {
 		const successChance = process.env.SUCCESS_NUMBER;
 		const chance = await this.catchChance();
