@@ -7,10 +7,9 @@ class FishScoreboard {
 			.from(TABLE_NAME)
 			.where('user_id', userId);
 
-		if (Array.isArray(userScoreboard) && userScoreboard.lenght < 1) {
+		if (Array.isArray(userScoreboard) && (userScoreboard === undefined || userScoreboard.length == 0)) {
 			this.userId = userId;
 			this.points = 0;
-
 			return;
 		}
 
@@ -21,15 +20,14 @@ class FishScoreboard {
 	}
 
 	async update(score) {
-		let currentScore = await db.select('*').from(TABLE_NAME).where('user_id', userId);
+		let currentScore = await db.select('*').from(TABLE_NAME).where('user_id', this.userId);
 
-		if (Array.isArray(currentScore) && currentScore.lenght < 1) {
+		if (Array.isArray(currentScore) && (currentScore === undefined || currentScore.length == 0)) {
 			await db.insert({
 				user_id: this.userId,
 				points: score,
 			}).table(TABLE_NAME);
 
-			this.userId = this.userId;
 			this.points = score;
 
 			return;
@@ -41,6 +39,10 @@ class FishScoreboard {
 		await db.update(currentScore).where('user_id', this.userId).from(TABLE_NAME);
 
 		this.points += score;
+	}
+
+	async getUserTotal() {
+		return this.points;
 	}
 
 	async getScoreboard() {

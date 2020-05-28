@@ -29,6 +29,7 @@ class Fish {
 		fishObject.maxLength = this.maxLength;
 		fishObject.minLength = this.minLength;
 		fishObject.rarity = this.rarity;
+		fishObject.length = this.length;
 
 		return fishObject;
 	}
@@ -69,7 +70,12 @@ class Fish {
 		await fishScoreboard.build(userId);
 		await fishScoreboard.update(points);
 
-		return await fishScoreboard.getScoreboard();
+		const returnObject = {};
+		returnObject.fish = await this.returnFish();
+		returnObject.points = points;
+		returnObject.total = await fishScoreboard.getUserTotal();
+
+		return returnObject;
 	}
 }
 

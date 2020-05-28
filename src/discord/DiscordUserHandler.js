@@ -24,6 +24,7 @@ class DiscordUserHandler {
 
 		user = user[0];
 
+		this.id = user.id;
 		this.username = user.username;
 		this.discord_user_id = user.id;
 		this.server_id = discordServerId;
@@ -32,12 +33,17 @@ class DiscordUserHandler {
 
 	async returnUser() {
 		const user = {};
+		user.id = this.id;
 		user.username = this.username;
 		user.discord_user_id = this.discord_user_id;
 		user.server_id = this.server_id;
 		user.avatar = this.avatar;
 
 		return user;
+	}
+
+	async returnUserId() {
+		return this.id;
 	}
 
 }

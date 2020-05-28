@@ -15,17 +15,24 @@ module.exports.run = async (bot, message) => {
 
 	const fish = new Fish();
 	await fish.generateFish();
-	const caughtFish = await fish.catch();
+	const caughtFish = await fish.catch(await DiscordUser.returnUserId());
 
-	console.log(caughtFish);
-	return;
+	if (caughtFish === false) {
+		const msg = await messageEmbed.setTitle('Sorry it got away')
+			.setColor(0xffffff)
+			.setDescription('The fish got away');
 
-	const msg = await messageEmbed.setTitle('Today Special!')
-		.setColor(0xffff00)
-		.setDescription(`Fish we found is ${data.name}`)
-		.addField('Max Length', data.maxLength)
-		.addField('Min Length', data.minLength)
-		.addField('Rarity', data.rarity);
+		await message.channel.send(msg);
+
+		return;
+	}
+
+	const msg = await messageEmbed.setTitle('Congratulation')
+		.setColor(0xffffff)
+		.setDescription(`You caught a fish ${caughtFish.fish.name}`)
+		.addField('The lenght of it', caughtFish.fish.length)
+		.addField('Earned points', caughtFish.points)
+		.addField('Your total is:', caughtFish.total);
 
 	await message.channel.send(msg);
 };
