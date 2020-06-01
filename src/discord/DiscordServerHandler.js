@@ -2,7 +2,17 @@ const db = require('./../../db');
 
 const TABLE_NAME = 'discord_servers';
 
+/**
+ * A class to handle Discord Server data and populate database with information.
+ */
 class DiscordServerHandler {
+
+	/**
+     * Build Database or return exsisting entry.
+     *
+     * @param guild
+     * @returns {Promise<void>}
+     */
 	async build(guild) {
 		let server = await db.select('*')
 			.from(TABLE_NAME)
@@ -26,6 +36,11 @@ class DiscordServerHandler {
 		this.serverMemberNo = server.server_members_no;
 	}
 
+	/**
+     * Return Server Object data in a plain object form
+	 *
+     * @returns {Promise<{}>}
+     */
 	async getServer() {
 		const serverObject = {};
 		serverObject.serverId = this.serverId;
@@ -35,6 +50,11 @@ class DiscordServerHandler {
 		return serverObject;
 	}
 
+	/**
+     * Return Server ID
+     *
+     * @returns {Promise<void>}
+     */
 	async getServerId() {
 		return this.serverId;
 	}

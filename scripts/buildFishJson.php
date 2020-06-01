@@ -1,5 +1,9 @@
 <?php
 
+/**
+* Scrape global public fish API database to create json with data.
+*/
+
 $offset = 0;
 
 $jsonDir = dirname(__DIR__) . '/seeds/json/fish.json';

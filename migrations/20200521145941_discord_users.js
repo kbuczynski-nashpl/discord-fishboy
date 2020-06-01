@@ -1,3 +1,15 @@
+/**
+ * Migration for discord_users table
+ * It stores details about discord users which used the bot.
+ *
+ * Table Schema:
+ *  - id              => [int] (Prime Key)
+ *  - username        => [string]
+ *  - discord_user_id => [big int]
+ *  - server_id 	  => [big int]
+ *  - avatar 		  => [string]
+ */
+
 exports.up = (knex) => {
 	return knex.schema
 		.createTable('discord_users', (table) => {

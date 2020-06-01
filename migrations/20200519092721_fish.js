@@ -1,3 +1,15 @@
+/**
+ * Migration for fish table
+ * It stores information about available fish scrape from json file
+ *
+ * Table Schema:
+ *  - id         => [int] (Prime Key)
+ *  - name       => [string]
+ *  - max_length => [int]
+ *  - min_length => [int]
+ *  - rarity 	 => [int]
+ */
+
 exports.up = (knex) => {
 	return knex.schema
 		.createTable('fish', (table) => {

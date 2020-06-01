@@ -2,8 +2,18 @@ const db = require('./../../db');
 
 const TABLE_NAME = 'discord_users';
 
+/**
+ * A class to handle Discord User information
+ */
 class DiscordUserHandler {
 
+	/**
+     * Builds a database entry from the api call or reuses exciting entry to build the object.
+     *
+     * @param discordUser
+     * @param discordServerId
+     * @returns {Promise<void>}
+     */
 	async build(discordUser, discordServerId) {
 		let user = await db.select('*')
 			.from(TABLE_NAME)
@@ -12,7 +22,7 @@ class DiscordUserHandler {
 			.limit(1);
 
 		if (Array.isArray(user) && user.length < 1) {
-		   user = await db.insert(
+			user = await db.insert(
 				{
 					username: discordUser.username,
 					discord_user_id: discordUser.id,
@@ -31,6 +41,11 @@ class DiscordUserHandler {
 		this.avatar = user.avatar;
 	}
 
+	/**
+     * Return user in a plain object
+     *
+     * @returns {Promise<{}>}
+     */
 	async returnUser() {
 		const user = {};
 		user.id = this.id;
@@ -42,6 +57,11 @@ class DiscordUserHandler {
 		return user;
 	}
 
+	/**
+     * Return user ID
+     *
+     * @returns {Promise<void>}
+     */
 	async returnUserId() {
 		return this.id;
 	}

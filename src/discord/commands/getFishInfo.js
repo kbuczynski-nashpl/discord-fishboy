@@ -1,6 +1,13 @@
 const Discord = require('discord.js');
 const Fish = require('./../../FishGame/Fish');
 
+/**
+ * Run discord command. Get a random fish info
+ *
+ * @param bot
+ * @param message
+ * @returns {Promise<void>}
+ */
 module.exports.run = async (bot, message) => {
 	const messageEmbed = new Discord.MessageEmbed();
 

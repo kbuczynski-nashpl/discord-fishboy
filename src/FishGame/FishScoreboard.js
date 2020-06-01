@@ -1,7 +1,17 @@
 const db = require('./../../db');
 const TABLE_NAME = 'fish_user_scoreboard';
 
+/**
+ * A fish scoreboard class
+ */
 class FishScoreboard {
+
+	/**
+	 * Build an object from the Database entry.
+	 *
+	 * @param userId
+	 * @returns {Promise<void>}
+	 */
 	async build(userId) {
 		let userScoreboard = await db.select('*')
 			.from(TABLE_NAME)
@@ -19,6 +29,12 @@ class FishScoreboard {
 		this.points = userScoreboard.points;
 	}
 
+	/**
+	 * Update scorebaord.
+	 *
+	 * @param score
+	 * @returns {Promise<void>}
+	 */
 	async update(score) {
 		let currentScore = await db.select('*').from(TABLE_NAME).where('user_id', this.userId);
 
@@ -41,14 +57,26 @@ class FishScoreboard {
 		this.points += score;
 	}
 
+	/**
+	 * Get total points
+	 *
+	 * @returns {Promise<number>}
+	 */
 	async getUserTotal() {
 		return this.points;
 	}
 
-	async getScoreboard() {
+	/**
+	 * Return top 5 entries for the server on the scoreboard.
+	 *
+	 * @param serverId
+	 * @returns {Promise<string>}
+	 */
+	async getScoreboard(serverId) {
 		const scoreboard = await db.select('*')
 			.from(TABLE_NAME)
-			.join('discord_users', 'user_id', '=', 'discord_users.id');
+			.join('discord_users', 'user_id', '=', 'discord_users.id')
+			.where('server_id', serverId);
 
 		scoreboard.sort((a, b) => parseFloat(a.points) - parseFloat(b.points));
 

@@ -2,6 +2,12 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const messageEmbed = new Discord.MessageEmbed();
 
+/**
+ * Run discord command callback send back botinfo/serverinfo message back to the client.
+ * @param bot
+ * @param message
+ * @returns {Promise<void>}
+ */
 module.exports.run = async (bot, message) => {
 	const botImage = bot.user.displayAvatarURL();
 	let size = client.guilds.size;

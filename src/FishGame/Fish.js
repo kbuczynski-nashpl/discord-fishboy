@@ -3,11 +3,15 @@ const FishScoreboard = require('./FishScoreboard');
 
 const TABLE_NAME = 'fish';
 
+/**
+ * A fish fish contain all fish related operations.
+ */
 class Fish {
 	/**
-	 * Generate Fish object
-	 * @returns void
-	 */
+     * Generate Fish object from the Database
+     *
+     * @returns void
+     */
 	async generateFish() {
 		const fish = await db.select('*').from(TABLE_NAME).whereRaw(`id = abs(random()) % (SELECT max(id) FROM ${TABLE_NAME}) + 1`).limit(1);
 		const row = fish[0];
@@ -20,9 +24,10 @@ class Fish {
 	}
 
 	/**
-	 * Return Fish Object
-	 * @returns {}
-	 */
+     * Return Fish plain Object
+     *
+     * @returns
+     */
 	async returnFish() {
 		const fishObject = {};
 		fishObject.name = this.name;
@@ -35,9 +40,9 @@ class Fish {
 	}
 
 	/**
-	 * Calculate Fish Catch chance
-	 * @returns number
-	 */
+     * Calculate Fish Catch chance
+     * @returns number
+     */
 	async catchChance() {
 		const baseChance = process.env.CATCH_CHANCE;
 
@@ -45,11 +50,11 @@ class Fish {
 	}
 
 	/**
-	 * Attempt catch of a fish and write score to the scoreboard.
-	 *
-	 * @param userId
-	 * @returns FishScoreboard
-	 */
+     * Attempt catch of a fish and write score to the scoreboard.
+     *
+     * @param userId
+     * @returns FishScoreboard
+     */
 	async catch(userId) {
 		const successChance = process.env.SUCCESS_NUMBER;
 		const chance = await this.catchChance();

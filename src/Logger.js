@@ -1,6 +1,10 @@
 'use strict';
 const winston = require('winston');
 
+/**
+ * Simple class used to debug the app if needed.
+ *
+ */
 class Logger {
 	constructor() {
 		this.logger = winston.createLogger({

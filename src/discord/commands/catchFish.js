@@ -3,6 +3,15 @@ const Fish = require('./../../FishGame/Fish');
 const DiscordUserHandler = require('../DiscordUserHandler');
 const DiscordServerHandler = require('../DiscordServerHandler');
 
+
+/**
+ * Run discord command. Attempt catching a fish by a user and update scoreboard.
+ * Return back message if fish has been caught or not
+ *
+ * @param bot
+ * @param message
+ * @returns {Promise<void>}
+ */
 module.exports.run = async (bot, message) => {
 	const DiscordServer = new DiscordServerHandler();
 	await DiscordServer.build(message.guild);

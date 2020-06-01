@@ -11,6 +11,10 @@ const jsonPath = path.resolve(__dirname, 'json/fish.json');
 const json = fs.readFileSync(jsonPath);
 const fish = JSON.parse(json);
 
+/**
+ * Populate/Seed Fish table with json data
+ */
+
 fish.forEach((entry) => {
 	db.insert(
 		{
