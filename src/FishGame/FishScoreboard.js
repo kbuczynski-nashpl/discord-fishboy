@@ -46,7 +46,26 @@ class FishScoreboard {
 	}
 
 	async getScoreboard() {
-		return db.select('*').from(TABLE_NAME);
+		const scoreboard = await db.select('*')
+			.from(TABLE_NAME)
+			.join('discord_users', 'user_id', '=', 'discord_users.id');
+
+		scoreboard.sort((a, b) => parseFloat(a.points) - parseFloat(b.points));
+
+		let counter = 1;
+
+		let returnBoard = '';
+		for (const entry of scoreboard) {
+			returnBoard += `${counter}) ${entry.username} ${entry.points}pts\n`;
+
+			if (counter >= 4) {
+				break;
+			}
+			counter++;
+		}
+
+		return returnBoard;
+
 	}
 }
 
