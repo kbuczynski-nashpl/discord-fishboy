@@ -21,7 +21,7 @@ class DiscordUserHandler {
                            .andWhere('discord_user_id', discordUser.id)
                            .limit(1);
 
-        if (Array.isArray(user) && user.length < 1) {
+        if (user.length < 1) {
             user = await db.insert(
                 {
                     username:        discordUser.username,
@@ -56,6 +56,25 @@ class DiscordUserHandler {
         user.avatar          = this.avatar;
 
         return user;
+    }
+
+    /**
+     * Get All users for the game
+     *
+     * @returns {Promise<string>}
+     */
+    async getServerUsers() {
+       const users = await db.select('*')
+                 .from(TABLE_NAME)
+                 .where('server_id', this.server_id);
+
+        let returnBoard = '';
+
+        for (const user of users) {
+            returnBoard += `${user.username}\n`;
+        }
+
+        return returnBoard;
     }
 
     /**
