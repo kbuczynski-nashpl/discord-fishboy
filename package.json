@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "knex": "node_modules/knex/bin/cli.js --migrations-directory migrations"
+    "migrate": "node_modules/knex/bin/cli.js migrate:up --migrations-directory migrations",
+    "seed": "node seeder.js"
   },
   "repository": {
     "type": "git",

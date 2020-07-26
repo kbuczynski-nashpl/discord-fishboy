@@ -21,3 +21,4 @@ fs.readdir('./seeds', (err, files) => {
 });
 
 console.info('Done !');
+return;

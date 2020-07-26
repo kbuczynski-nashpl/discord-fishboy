@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord        = require('discord.js');
 const FishScoreboard = require('./../../FishGame/FishScoreboard');
 
 /**
@@ -9,21 +9,21 @@ const FishScoreboard = require('./../../FishGame/FishScoreboard');
  * @returns {Promise<void>}
  */
 module.exports.run = async (bot, message) => {
-	const messageEmbed = new Discord.MessageEmbed();
-	const fishScoreboard = new FishScoreboard();
+    const messageEmbed   = new Discord.MessageEmbed();
+    const fishScoreboard = new FishScoreboard();
 
-	const scoreboard = await fishScoreboard.getScoreboard(message.guild.id);
+    const scoreboard = await fishScoreboard.getScoreboard(message.guild.id);
 
-	const msg = await messageEmbed.setTitle('Scoreboard')
-		.setColor(0xffff00)
-		.setTitle(`${message.guild.name} Scoreboard`)
-		.setDescription('Top 5 Players')
-		.addField('Scoreboard', scoreboard);
+    const msg = await messageEmbed.setTitle('Scoreboard')
+                                  .setColor(0xffff00)
+                                  .setTitle(`${message.guild.name} Scoreboard`)
+                                  .setDescription('Top 5 Players')
+                                  .addField('Scoreboard', scoreboard);
 
-	await message.channel.send(msg);
+    await message.channel.send(msg);
 };
 
 module.exports.help = {
-	name: 'scoreboard',
-	description: 'Shows current server scoreboard',
+    name:        'scoreboard',
+    description: 'Shows current server scoreboard',
 };
